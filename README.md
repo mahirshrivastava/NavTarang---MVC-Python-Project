@@ -1,4 +1,4 @@
-# navtarang
+# NavTarang - MVC Project
 
 Navtarang is a lightweight web application that pairs a Python backend with HTML/CSS frontend assets. This repository contains the application source, dependency list, and a deployment configuration suitable for quick local runs or platform deployment.
 
