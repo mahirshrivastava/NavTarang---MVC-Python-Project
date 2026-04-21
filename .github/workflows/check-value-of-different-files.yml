@@ -1,0 +1,27 @@
+name: Share Data Between Jobs
+
+on: [push]
+
+jobs:
+  job_one:
+    runs-on: ubuntu-latest
+    # You MUST declare the output here to make it available to other jobs
+    outputs:
+      my_shared_value: ${{ steps.step1.outputs.version }}
+    
+    steps:
+      - name: Generate a value
+        id: step1
+        run: |
+          # Use the new $GITHUB_OUTPUT syntax
+          echo "version=1.2.3" >> "$GITHUB_OUTPUT"
+
+  job_two:
+    runs-on: ubuntu-latest
+    # This job MUST wait for job_one to finish
+    needs: job_one
+    
+    steps:
+      - name: Use the value from job_one
+        run: |
+          echo "The version received was: ${{ needs.job_one.outputs.my_shared_value }}"
